@@ -102,8 +102,8 @@ int main(int argc, char *argv[]){
   //*/
   //*Prepare for hull (Head-phantom) (comment out if not applicable)
   TFile* phantomFile = new TFile("HeadPhantom.root","update");
-  TH3S* hull = new TH3S("hull", "Hounsfield Units", 1024,-90,102, 1024,-90,102, 128,-166.25,-6.25); //mm
-  phantomFile->GetObject("hu",hull); 
+  TH3S* HUnits = new TH3S("hull", "Hounsfield Units", 1024,-90,102, 1024,-90,102, 128,-166.25,-6.25); //mm
+  phantomFile->GetObject("hu",HUnits); 
   //*/
   double x,y,z, xRot,yRot,zRot, xOrient,yOrient,zOrient;
     
@@ -124,14 +124,14 @@ int main(int argc, char *argv[]){
  /*
   TH3S* HUMap = new TH3S("HullMap", "hulls", 457,-114.25,114.25, 181,-45.25,45.25, 1600,-150,150); //Cylinder Covers the entire area between the two trackers 
   
-  for( int binzid = 1; binzid<=(hull->GetZaxis()->GetNbins()); binzid++){
-	  for( int binyid = 1; binyid<=(hull->GetYaxis()->GetNbins()); binyid++){
-      for( int binxid = 1; binxid<=(hull->GetXaxis()->GetNbins()); binxid++ ){ 
+  for( int binzid = 1; binzid<=(HUnits->GetZaxis()->GetNbins()); binzid++){
+	  for( int binyid = 1; binyid<=(HUnits->GetYaxis()->GetNbins()); binyid++){
+      for( int binxid = 1; binxid<=(HUnits->GetXaxis()->GetNbins()); binxid++ ){ 
 	   
-	      int hullPos = (int)hull->GetBinContent(binxid,binyid,binzid); 	  
-	      x = hull->GetXaxis()->GetBinCenter(binxid);
-	      y = hull->GetYaxis()->GetBinCenter(binyid);
-	      z = hull->GetZaxis()->GetBinCenter(binzid);
+	      int hullPos = (int)HUnits->GetBinContent(binxid,binyid,binzid); 	  
+	      x = HUnits->GetXaxis()->GetBinCenter(binxid);
+	      y = HUnits->GetYaxis()->GetBinCenter(binyid);
+	      z = HUnits->GetZaxis()->GetBinCenter(binzid);
  
         HUMap->Fill(x,z,y,hullPos);
       }
